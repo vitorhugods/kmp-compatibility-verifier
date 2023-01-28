@@ -1,0 +1,34 @@
+name: "Run Plugin Tests"
+
+on:
+  pull_request:
+    types: [ opened, synchronize ]
+  push:
+    branches:
+        - 'develop'
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
+
+jobs:
+  gradle-run-tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      - name: Test the Plugin
+        run: ./gradlew :kmp-verifier-plugin:test
+
+      - name: Cleanup Gradle Trash
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
