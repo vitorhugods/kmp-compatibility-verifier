@@ -64,4 +64,21 @@ class IntegrationTest {
         )
     }
 
+    @Test
+    fun `given source set is fully compatible, when running verification task, should write success message to html`() {
+        val fixtureDirName = "fully-compatible-html"
+        GradleRunner.create()
+            .commonTestProject(fixtureDirName)
+            .withPluginClasspath()
+            .withArguments("clean", KMPVerifierPlugin.UMBRELLA_TASK_NAME + "main", "--stacktrace")
+            .build()
+
+        val outputDir = File("src/test/$fixtureDirName/build/kmpVerifier")
+        val mainReport = File(outputDir, "main.html")
+
+        mainReport.readText().shouldContain(
+            SUCCESS_MESSAGE
+        )
+    }
+
 }
