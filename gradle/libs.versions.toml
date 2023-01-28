@@ -1,0 +1,23 @@
+[versions]
+agp = "7.3.1"
+kotest = "5.5.4"
+kotlin = "1.8.0"
+kotlinx-html = "0.8.0"
+kmp-verifier = "0.0.1"
+
+[plugins]
+kmp-verifier = { id = "dev.schwaab.kmpverifier", version.ref = "kmp-verifier" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-application = { id = "com.android.application", version.ref = "agp" }
+
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+
+[bundles]
+
+[libraries]
+android-gradle-plugin = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest"}
+kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html-jvm", version.ref = "kotlinx-html"}
